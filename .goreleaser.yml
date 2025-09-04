@@ -1,4 +1,4 @@
-version: 1
+version: 2
 project_name: timeguard
 
 builds:
@@ -39,9 +39,23 @@ brews:
     commit_author:
       name: TimeGuard Bot
       email: bot@example.com
+    test: |
+      system "#{bin}/timeguard", "version"
   # Using default install (bin.install build binaries). Remove custom install seq.
 
-# Temporarily removed scoop section until v2 schema verified; will re-add later.
+# Scoop bucket packaging
+scoop:
+  bucket:
+    owner: nirakar24
+    name: scoop-timeguard
+  homepage: https://github.com/nirakar24/timeguard
+  description: Advanced timezone & temporal edge-case toolkit
+  license: MIT
+  commit_author:
+    name: TimeGuard Bot
+    email: bot@example.com
+  checkver: github
+  autoupdate: true
 
 nfpms:
   - id: linux-packages
@@ -55,9 +69,39 @@ nfpms:
       - deb
       - rpm
 
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
+      - '^chore:'
+  groups:
+    - title: Features
+      regexp: '^(feat|feature)(\(|:)'
+    - title: Fixes
+      regexp: '^(fix)(\(|:)'
+    - title: Refactoring
+      regexp: '^(refactor)(\(|:)'
+    - title: Misc
+      regexp: '.*'
+
+sboms:
+  - id: archive-sbom
+    artifacts: archive
+    formats: [cyclonedx-json]
+
+signs:
+  - id: checksum-sign
+    cmd: sh
+    args: ["-c", "echo placeholder-signature > $signature"]
+    artifacts: checksum
+
 release:
   github:
     owner: nirakar24
     name: timeguard
   draft: false
   prerelease: auto
+snapshot:
+  name_template: "{{ .Version }}-SNAPSHOT-{{ .ShortCommit }}"
