@@ -62,7 +62,7 @@ changelog:
 sboms:
   - id: archive-sbom
     artifacts: archive
-    formats: [cyclonedx-json]
+    # Removed unsupported 'formats' field (GoReleaser v2); using default CycloneDX output if enabled internally.
 
 signs:
   - id: checksum-sign
