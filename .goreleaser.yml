@@ -28,34 +28,7 @@ archives:
 checksum:
   name_template: "checksums.txt"
 
-brews:
-  - name: timeguard
-    homepage: "https://github.com/nirakar24/timeguard"
-    description: "Advanced timezone & temporal edge-case toolkit"
-    license: MIT
-    repository:
-      owner: nirakar24
-      name: homebrew-timeguard
-    commit_author:
-      name: TimeGuard Bot
-      email: bot@example.com
-    test: |
-      system "#{bin}/timeguard", "version"
-  # Using default install (bin.install build binaries). Remove custom install seq.
-
-# Scoop bucket packaging
-scoop:
-  bucket:
-    owner: nirakar24
-    name: scoop-timeguard
-  homepage: https://github.com/nirakar24/timeguard
-  description: Advanced timezone & temporal edge-case toolkit
-  license: MIT
-  commit_author:
-    name: TimeGuard Bot
-    email: bot@example.com
-  checkver: github
-  autoupdate: true
+## Packaging targets (Homebrew & Scoop) removed per request.
 
 nfpms:
   - id: linux-packages
