@@ -28,7 +28,6 @@ archives:
 checksum:
   name_template: "checksums.txt"
 
-## Packaging targets (Homebrew & Scoop) removed per request.
 
 nfpms:
   - id: linux-packages
@@ -62,7 +61,6 @@ changelog:
 sboms:
   - id: archive-sbom
     artifacts: archive
-    # Removed unsupported 'formats' field (GoReleaser v2); using default CycloneDX output if enabled internally.
 
 signs:
   - id: checksum-sign
