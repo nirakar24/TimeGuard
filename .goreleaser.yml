@@ -76,5 +76,3 @@ release:
     name: timeguard
   draft: false
   prerelease: auto
-snapshot:
-  name_template: "{{ .Version }}-SNAPSHOT-{{ .ShortCommit }}"
