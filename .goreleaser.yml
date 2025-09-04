@@ -39,18 +39,9 @@ brews:
     commit_author:
       name: TimeGuard Bot
       email: bot@example.com
-    install:
-      - bin.install "timeguard"
+  # Using default install (bin.install build binaries). Remove custom install seq.
 
-# Scoop bucket configuration (requires bucket to exist)
-scoop:
-  name: timeguard
-  homepage: https://github.com/nirakar24/timeguard
-  description: "Advanced timezone & temporal edge-case toolkit"
-  license: MIT
-  repository:
-    owner: nirakar24
-    name: scoop-timeguard
+# Temporarily removed scoop section until v2 schema verified; will re-add later.
 
 nfpms:
   - id: linux-packages
