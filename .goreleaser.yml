@@ -1,0 +1,59 @@
+project_name: timeguard
+
+builds:
+  - id: timeguard
+    main: .
+    binary: timeguard
+    goos: [linux, darwin, windows]
+    goarch: [amd64, arm64]
+    env:
+      - CGO_ENABLED=0
+    ldflags:
+      - -s -w -X github.com/nirakar24/timeguard/cmd.Version={{ .Version }} -X github.com/nirakar24/timeguard/cmd.Commit={{ .Commit }} -X github.com/nirakar24/timeguard/cmd.Date={{ .Date }}
+
+archives:
+  - id: archive
+    builds: [timeguard]
+    format_overrides:
+      - goos: windows
+        format: zip
+
+checksums:
+  name_template: 'checksums.txt'
+
+brews:
+  - name: timeguard
+    tap:
+      owner: nirakar24
+      name: homebrew-timeguard
+    commit_author:
+      name: TimeGuard Bot
+      email: bot@example.com
+    folder: Formula
+    homepage: "https://github.com/nirakar24/timeguard"
+    description: "Advanced timezone & temporal edge-case toolkit"
+    license: "MIT"
+
+scoop:
+  bucket:
+    owner: nirakar24
+    name: scoop-timeguard
+  description: "Advanced timezone & temporal edge-case toolkit"
+  license: MIT
+
+nfpms:
+  - id: linux-packages
+    package_name: timeguard
+    file_name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
+    homepage: "https://github.com/nirakar24/timeguard"
+    description: "Advanced timezone & temporal edge-case toolkit"
+    maintainer: "TimeGuard Maintainers <maintainers@example.com>"
+    license: MIT
+    formats: [deb, rpm]
+
+release:
+  github:
+    owner: nirakar24
+    name: timeguard
+  draft: false
+  prerelease: auto
