@@ -2,6 +2,48 @@
 
 TimeGuard is a cross-platform CLI tool for handling tricky time concepts: timezone conversions, DST transitions, leap seconds, leap smearing, and log timestamp validation.
 
+## Install
+
+Quick install from a published release (replace v0.1.6 with the version you want):
+
+Linux/macOS:
+```
+VER=v0.1.6
+OS=$(uname | tr '[:upper:]' '[:lower:]'); ARCH=$(uname -m); [ "$ARCH" = "x86_64" ] && ARCH=amd64; [ "$ARCH" = "aarch64" ] && ARCH=arm64
+curl -L -o timeguard.tar.gz "https://github.com/nirakar24/timeguard/releases/download/$VER/timeguard_${VER}_${OS}_${ARCH}.tar.gz"
+tar -xzf timeguard.tar.gz
+sudo install -m0755 timeguard /usr/local/bin/timeguard
+timeguard version
+```
+
+Windows (PowerShell):
+```
+$ver = 'v0.1.6'
+Invoke-WebRequest -Uri "https://github.com/nirakar24/timeguard/releases/download/$ver/timeguard_${ver}_windows_amd64.zip" -OutFile timeguard.zip
+Expand-Archive .\timeguard.zip -DestinationPath .\timeguard-bin -Force
+New-Item -ItemType Directory -Force "$HOME\bin" | Out-Null
+Copy-Item .\timeguard-bin\timeguard.exe $HOME\bin\
+$env:PATH = "$HOME\bin;$env:PATH"
+timeguard version
+```
+
+From source (requires Go 1.22+):
+```
+go install github.com/nirakar24/timeguard@latest
+```
+
+Deb/RPM (if provided in release assets):
+```
+VER=v0.1.6
+curl -LO "https://github.com/nirakar24/timeguard/releases/download/$VER/timeguard_${VER}_linux_amd64.deb"
+sudo dpkg -i timeguard_${VER}_linux_amd64.deb
+```
+
+Checksum verify:
+```
+sha256sum -c checksums.txt | grep timeguard_${VER}_${OS}_${ARCH}
+```
+
 ## Commands
 
 | Command | Purpose | Example |
@@ -44,11 +86,11 @@ $ timeguard validate-logs ./server.log
 
 ## Packaging / Release
 
-Goreleaser config (`.goreleaser.yml`) produces:
-- Binaries (linux/darwin/windows; amd64/arm64)
-- Homebrew formula (tap: `example/homebrew-timeguard`)
-- Scoop manifest (bucket: `example/scoop-timeguard`)
-- Debian/RPM packages via nfpm
+Goreleaser config (`.goreleaser.yml`) currently produces:
+- Compressed archives (linux/darwin/windows; amd64/arm64)
+- Checksums file
+- Debian/RPM packages (nfpm)
+- SBOM (CycloneDX) and checksum signature placeholder
 
 Dry run:
 ```
